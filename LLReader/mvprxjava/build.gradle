@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+
+    //Retrofit是Square的一个著名的网络请求库(框架)。其底层封装了OkHttp的框架
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+
+    // RxLifecycle基础库
+    //Rxlifecycle实际的项目中会出现很多订阅关系，那么取消订阅的代码也就越来越多。
+    // 造成了项目很难维护。所以我们必须寻找其他可靠简单可行的方式，
+    implementation 'com.trello.rxlifecycle3:rxlifecycle:3.0.0'
+    // Android使用的库，里面定义了Android的生命周期方法.内部引用了基础库，如果使用此库则可不引用基础库
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android:3.0.0'
+    // Android组件库，里面定义了例如RxAppCompatActivity、RxActivity、RxFragment之类的Android组件
+    // 内部引用了基础库和Android库，如果使用此库则无需再重复引用
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
+    // If you want to use Navi for providers
+    //implementation 'com.trello.rxlifecycle3:rxlifecycle-navi:3.0.0'
+    // If you want to use Kotlin syntax（语法，有序的排列）
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-kotlin:3.0.0'
+
+
+    //rxandroid 本库没用到，等项目启用
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
+
+    //RxBus 组件通信，本库没用到，等项目启用
+    //Timber其实就是对Android的Log类进行封装后的一个Log工具，
+    // 平时我自己也有封装过，不过jake wharton大神的封装非常优雅。
+    //通过force、exclude等方式避免依赖项版本冲突
+    implementation ('com.hwangjr.rxbus:rxbus:2.0.0-beta') {
+        exclude group: 'com.jakewharton.timber', module: 'timber'
+    }
+
+
+}

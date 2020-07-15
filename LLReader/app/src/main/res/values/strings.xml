@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">洛洛阅读</string>
+
+    <string name="umeng_key">5bdd6a45b465f57234000913</string>
+
+
+    <string name="net_error_10001">没有网络</string>
+    <string name="net_error_10002">网络连接超时</string>
+    <string name="net_error_10003">数据解析失败</string>
+
+    <string name="tv_read_durprogress">观看至:%s</string>
+    <string name="tv_book_name">《%s》</string>
+    <string name="tv_searchbook_lastest">最新章节:%s</string>
+    <string name="tv_pop_checkaddshelf">是否将《%s》放入书架？</string>
+    <string name="tv_importbook_count">共%s个Text文件</string>
+    <string name="gonggao1">所有小说来源均来自各个网站，本APP仅提供转载服务</string>
+    <string name ="leixing">小说类型 (讨论组:949762199)</string>
+    <string name ="gonggao">洛洛小说改进阅读唯一讨论组:949762199 内测需要你!</string>
+    <string name ="Chaptererror">站点暂时不支持解析，请反馈给luoyang QQ:1845313665,超级有效率的程序员</string>>
+
+
+    <string name="font_default">系统默认</string>
+    <string name="font_qihei">羿创旗黑</string>
+    <string name="font_fzkatong">卡通</string>
+    <string name="font_bysong">繁宋体</string>
+    <string name="font_hkshaonv">华康少女</string>
+    <string name="font_hwzhongsong">华文中宋</string>
+    <string name="font_kaiti">楷书</string>
+    <string name="font_youyuan">幼圆</string>
+</resources>
+

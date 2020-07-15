@@ -1,0 +1,148 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'com.jakewharton.butterknife'
+
+//拿到时间
+def getTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getDefault());
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.luoyang.llreader"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "2.1.4"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "debug"]
+    }
+    buildTypes {
+
+        release {
+            buildConfigField "boolean", "IS_RELEASE", "true"
+            minifyEnabled true
+            zipAlignEnabled true  // Zipalign优化
+            shrinkResources true // 移除无用的resource文件,必须和minifyEnabled 一起使用
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 打包后应用名称
+            applicationVariants.all { variant ->
+
+                //我的更新前
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    def  fileName
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        if ("release".equals(variant.buildType.name)) {
+                            fileName = "llReader_R${defaultConfig.versionName}.${getTime()}.apk"
+                        } else if ("debug".equals(variant.buildType.name)) {
+                            fileName = "llReader_D${defaultConfig.versionName}.${getTime()}.apk"
+                        }
+                        outputFileName = fileName
+                    }
+                }
+            }
+       }
+
+        //这是系统默认的生成debug.apk的代码，我这边是提出来对比release的
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+}
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+    //我的module lib
+    implementation project(':mvprxjava')
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-components:3.0.0'
+
+
+    //沉浸式状态栏
+    implementation 'com.zhangmonke:ImmerseLayout:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    //GreenDao 一款用于数据库创建与管理的框架，
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
+
+    //Retrofit是Square的一个著名的网络请求库(框架)。其底层封装了OkHttp的框架
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    //JSOUP 解析html
+    implementation 'org.jsoup:jsoup:1.11.3'
+
+    //RxBus 组件通信
+
+    //Timber其实就是对Android的Log类进行封装后的一个Log工具，平时我自己也有封装过，不过jake wharton大神的封装非常优雅。通过force、exclude等方式避免依赖项版本冲突
+    implementation('com.hwangjr.rxbus:rxbus:2.0.0-beta') {
+        exclude group: 'com.jakewharton.timber', module: 'timber'
+    }
+
+    //AutofitTextView 根据字长自适应
+    implementation 'me.grantland:autofittextview:0.2.1'
+
+    //ProgressBar 自定义进度条
+    implementation 'com.zhangmonke:MProgressBar:1.0.1'
+
+    //Glide 流畅图片加载
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    //实现View的粉碎粒子效果
+    implementation 'tyrantgit:explosionfield:1.0.1'
+
+    //View简易动画 YoYO
+
+    implementation 'com.daimajia.androidanimations:library:2.3'
+
+    implementation 'com.daimajia.easing:library:2.1'
+
+    //View简易动画
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.2@aar'
+
+    //判断字符或文件的编码格式 UniversalDetector detector = new UniversalDetector(null);
+    implementation files('libs/juniversalchardet-1.0.3.jar')
+
+    //旋转加载视图View控件
+    implementation 'com.victor:lib:1.0.4'
+
+    //SwitchButton 一个开源 switch开关控件
+    implementation 'com.kyleduo.switchbutton:library:1.4.4'
+    //circleimageview圆圈图
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    // Umeng 统计SDK包
+    implementation files('libs/umeng-analytics-7.5.4.jar')
+    // 基础组件包 这个必须导入
+    implementation files('libs/umeng-common-1.5.4.jar')
+    // 包含设备标识UTDID组件
+    implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
+
+    //butterknife
+//    implementation 'com.jakewharton:butterknife:8.5.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+}
+
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.luoyang.llreader.dao' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
+}

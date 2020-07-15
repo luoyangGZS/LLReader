@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 空心 -->
+    <!--<solid android:color="@color/tv_btn_normal_black"/>-->
+    <solid android:color="@drawable/bg_shadow2"/>
+    <!-- 渐变 -->
+    <!--<gradient-->
+        <!--android:startColor="#ff8c00"-->
+        <!--android:endColor="#FFFFFF"-->
+        <!--android:angle="270" />-->
+
+    <!-- 描边 -->
+    <stroke
+        android:width="1dp"
+        android:color="@color/tv_btn_normal_black" />
+    <!-- 圆角 -->
+    <corners
+        android:radius="20dp" />
+
+    <padding
+        android:left="5dp"
+        android:top="10dp"
+        android:right="5dp"
+        android:bottom="10dp" />
+</shape>

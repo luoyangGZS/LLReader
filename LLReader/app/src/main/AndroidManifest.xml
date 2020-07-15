@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.luoyang.llreader">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config">
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="@string/umeng_key" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+        <!-- &lt;!&ndash;<meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>&ndash;&gt; -->
+        <!-- &lt;!&ndash;//中的Channel ID 替换为您应用的推广渠道名称，channel id自定义。&ndash;&gt; -->
+        <!-- &lt;!&ndash;例如在豌豆荚渠道推广此包，代码示例： <meta-data android:value="Wandoujia" android:name="UMENG_CHANNEL"/>&ndash;&gt; -->
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            </activity>
+    <!--            <activity-->
+<!--            android:name=".activity.WelcomeActivity"-->
+<!--            android:screenOrientation="portrait">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:name=".activity.MainActivity"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".activity.SearchActivity"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CAppTransparentTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
+            android:name=".activity.LibraryActivity"
+            android:theme="@style/CAppTransparentTheme"/>
+
+        <activity
+            android:name=".activity.ChoiceBookActivity" />
+
+        <activity
+            android:name=".activity.BookDetailActivity"
+            android:theme="@style/CAppTransparentTheme"/>
+
+        <activity
+            android:name=".activity.ReadBookActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <!--将应用添加到打开方式：指定app的这个Activity可以打开设备中的Text，是隐式意图-->
+                <!--action的功能关键词是VIEW，是“浏览”。category是默认, MIME Type，也就是该资源的媒体类型-->
+                <action android:name="android.intent.action.VIEW"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+                <data android:mimeType="text/plain"></data>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.ImportBookActivity"
+            android:theme="@style/CAppTransparentTheme" />
+
+
+        <service android:name=".service.DownloadService" />
+    </application>
+
+</manifest>
